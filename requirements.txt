@@ -1,0 +1,14 @@
+s3fs
+dask
+distributed
+fsspec
+pandas
+numcodecs
+prefect
+xarray
+zarr
+pyarrow
+fastparquet
+netcdf4
+scipy
+cdsapi

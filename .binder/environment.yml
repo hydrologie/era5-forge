@@ -1,0 +1,17 @@
+name: era5-forge
+channels:
+ - conda-forge
+dependencies:
+ - python=3.8*
+ - s3fs
+ - dask
+ - pandas
+ - distributed
+ - fsspec
+ - numcodecs
+ - prefect
+ - xarray
+ - netcdf4
+ - scipy
+ - zarr
+ - cdsapi

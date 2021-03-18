@@ -1,0 +1,53 @@
+import os
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+
+
+class Config(object):
+    # SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
+    # SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
+    #                           'sqlite:///' + os.path.join(basedir, 'hydrodatahub.db')
+    # SQLALCHEMY_DATABASE_URI_PUBLIC = os.environ.get('DATABASE_URL_PUBLIC') or \
+    #                                  'sqlite:///' + os.path.join(basedir, 'hydrodatahub.db')
+    # SQLALCHEMY_TRACK_MODIFICATIONS = False
+    # LOG_TO_STDOUT = os.environ.get('LOG_TO_STDOUT')
+    # ADMINS = ['your-email@example.com']
+    # LANGUAGES = ['en']
+    # REDIS_URL = os.environ.get('REDIS_URL') or 'redis://'
+    # SHARABLE_DB = os.environ.get('SHARABLE_DB')
+    BUCKET = 's3://era5-atlantic-northeast/netcdf/single-levels/day'
+    VARIABLES = {'snow_albedo': 'asn',
+                 'convective_available_potential_energy': 'cape',
+                 'convective_precipitation': 'cp',
+                 'convective_snowfall': 'csf',
+                 '2m_dewpoint_temperature': 'd2m',
+                 'evaporation': 'e',
+                 'large_scale_snowfall': 'lsf',
+                 'large_scale_precipitation': 'lsp',
+                 'maximum_2m_temperature_since_previous_post_processing': 'mn2t',
+                 'minimum_2m_temperature_since_previous_post_processing': 'mx2t',
+                 'precipitation_type':'ptype',
+                 'runoff':'ro',
+                 'snow_depth': 'sd',
+                 'snowfall': 'sf',
+                 'surface_runoff': 'sro',
+                 'surface_net_solar_radiation': 'ssr',
+                 '2m_temperature': 't2m',
+                 'total_cloud_cover': 'tcc',
+                 'total_column_rain_water': 'tcrw',
+                 'total_column_water': 'tcw',
+                 'total_column_water_vapour': 'tcwv',
+                 'total_precipitation': 'tp',
+                 'temperature_of_snow_layer': 'tsn',
+                 '10m_u_component_of_wind': 'u10',
+                 '10m_v_component_of_wind': 'v10'}
+
+    TIMES = ['00:00', '01:00', '02:00',
+             '03:00', '04:00', '05:00',
+             '06:00', '07:00', '08:00',
+             '09:00', '10:00', '11:00',
+             '12:00', '13:00', '14:00',
+             '15:00', '16:00', '17:00',
+             '18:00', '19:00', '20:00',
+             '21:00', '22:00', '23:00'
+             ]
