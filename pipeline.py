@@ -88,6 +88,9 @@ def save_files_per_variable(arg):
                                                                         chosen_date.month,
                                                                         chosen_date.day,
                                                                         var.upper())
+
+        print(var.lower())
+
         ds[var.lower()].to_netcdf(filename)
 
         s3.put(filename,
