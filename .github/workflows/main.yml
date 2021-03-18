@@ -29,6 +29,13 @@ jobs:
             aws_secret_access_key = ${{ secrets.AWS_SECRET_KEY_ID }}
             region = us-east-2
             source_profile = default" > ~/.aws/credentials
+
+            touch ~/.cdsapirc
+            echo "
+            url: https://cds.climate.copernicus.eu/api/v2
+            key: ${{ secrets.CDS_API_KEY }}
+            " > ~/.cdsapirc
+
       - name: Run Pipeline
         run: |
 
