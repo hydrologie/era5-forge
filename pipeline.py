@@ -54,7 +54,7 @@ def save_files_per_variable(arg):
 
 
 
-    c = cdsapi.Client(verify=False)
+    c = cdsapi.Client()
 
     name = 'reanalysis-era5-single-levels'
 
@@ -269,7 +269,7 @@ if __name__ == '__main__':
         #         labels=labels, max_polls=50
         #     )
         dates = pd.date_range(start="1979-01-01",
-                             end="2021-01-01")
+                              end="2021-01-01")
 
         products = list_files_to_update(dates)
         save_files_per_variable.map(products)
