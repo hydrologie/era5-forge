@@ -279,7 +279,7 @@ if __name__ == '__main__':
             #     path = download_hydat_file(path)
             #     update_hydat_database(path)
 
-    flow.register(project_name="hydat-file-upload")
+    # flow.register(project_name="hydat-file-upload")
     # agent.start()
     flow.run()
 
