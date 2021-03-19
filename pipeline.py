@@ -24,7 +24,7 @@ from config import Config
 # from pipeline.utils import get_url_paths
 
 
-# @task
+@task
 def list_files_to_update(dates):
 
     client_kwargs = {'endpoint_url': 'https://s3.us-east-2.wasabisys.com',
@@ -44,7 +44,7 @@ def list_files_to_update(dates):
     return gb.reset_index().values
 
 
-# @task(max_retries=5, retry_delay=timedelta(minutes=5))
+@task(max_retries=5, retry_delay=timedelta(minutes=5))
 def save_files_per_variable(arg):
     chosen_date, variables = arg
     chosen_date = datetime.strptime(chosen_date, '%Y%m%d')
@@ -102,20 +102,76 @@ def save_files_per_variable(arg):
 
 if __name__ == '__main__':
 
+    with Flow("Hydat-ETL") as flow:
+        dates = pd.date_range(start="1979-01-01",
+                              end="2021-01-01")
 
-    # with Flow("Hydat-ETL") as flow:
-    #     dates = pd.date_range(start="1979-01-01",
-    #                           end="2021-01-01")
+        products = list_files_to_update(dates)
+        save_files_per_variable.map(products)
+
+    flow.run()
+
+    # dates = pd.date_range(start="1979-01-01",
+    #                       end="2021-01-01")
     #
-    #     products = list_files_to_update(dates)
-    #     save_files_per_variable.map(products)
+    # products = list_files_to_update(dates)
+    # save_files_per_variable.map(products)
+
+
+    # # client = Client()
+    # # print(client.dashboard_link)
+    # client_kwargs = {"endpoint_url": "https://s3.us-east-2.wasabisys.com"}
     #
-    # flow.run()
-
-    dates = pd.date_range(start="1979-01-01",
-                          end="2021-01-01")
-
-    products = list_files_to_update(dates)
-    for prod in products:
-        save_files_per_variable(prod)
-
+    # current_year_bucket = 's3://era5-atlantic-northeast/zarr/reanalysis/single-levels/current_year'
+    # archive_bucket = 's3://era5-atlantic-northeast/zarr/reanalysis/single-levels/archive'
+    #
+    # # dates = pd.date_range(start='1979-01-01',
+    # #                       end='1979-01-02',
+    # #                       freq='1D',
+    # #                       normalize=True)
+    # dates = []
+    # try:
+    #     # Look in current year bucket for previous date
+    #     # Url du serveur contenant le bucket
+    #     store = fsspec.get_mapper(current_year_bucket,
+    #                               profile='default',
+    #                               client_kwargs=client_kwargs)
+    #     # Ouverture du zarr vers dataset (xarray)
+    #     ds = xr.open_zarr(store,
+    #                       consolidated=True,
+    #                       chunks='auto')
+    #
+    #     dates = pd.date_range(start=ds.time.max().values,
+    #                           end=date.today(),
+    #                           freq='1D',
+    #                           normalize=True)[1:]
+    # except Exception:
+    #     pass
+    #
+    # finally:
+    #     if not any(dates):
+    #         # Look in current year bucket for previous date
+    #         # Url du serveur contenant le bucket
+    #         store = fsspec.get_mapper(archive_bucket,
+    #                                   profile='default',
+    #                                   client_kwargs=client_kwargs)
+    #         # Ouverture du zarr vers dataset (xarray)
+    #         ds = xr.open_zarr(store,
+    #                           consolidated=True,
+    #                           chunks='auto')
+    #
+    #         dates = pd.date_range(start=ds.time.max().values,
+    #                               end=date.today(),
+    #                               freq='1D',
+    #                               normalize=True)[1:]
+    #
+    #
+    # # If current year bucket is empty, look into the archive bucket
+    #
+    # store = fsspec.get_mapper(current_year_bucket,
+    #                           profile='default',
+    #                           client_kwargs=client_kwargs)
+    # for date_time in dates:
+    #     ds_out = get_era5(date_time, current_year_bucket, store)
+    #     process(ds_out, store)
+    #     shutil.rmtree("tmp.zarr")
