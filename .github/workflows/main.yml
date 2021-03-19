@@ -34,9 +34,4 @@ jobs:
             key: ${{ secrets.CDS_API_KEY }}
             " > ~/.cdsapirc
 
-      - name: Run Pipeline
-        run: |
-
-            # Register flow
-            conda activate era5-forge
             python pipeline.py
