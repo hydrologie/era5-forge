@@ -116,5 +116,6 @@ if __name__ == '__main__':
                           end="2021-01-01")
 
     products = list_files_to_update(dates)
-    save_files_per_variable.map(products)
+    for prod in products:
+        save_files_per_variable(prod)
 
