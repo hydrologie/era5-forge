@@ -1,9 +1,9 @@
-name: CI
+name: DataOps
 
 on:
   push:
   schedule:
-    - cron: '0 6 * * *'
+    - cron: '0 */6 * * *'
 
 jobs:
   run:
