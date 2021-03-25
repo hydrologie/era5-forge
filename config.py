@@ -1,21 +1,22 @@
-import os
-
-basedir = os.path.abspath(os.path.dirname(__file__))
-
-
+from datetime import datetime, timedelta
 class Config(object):
-    # SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
-    # SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-    #                           'sqlite:///' + os.path.join(basedir, 'hydrodatahub.db')
-    # SQLALCHEMY_DATABASE_URI_PUBLIC = os.environ.get('DATABASE_URL_PUBLIC') or \
-    #                                  'sqlite:///' + os.path.join(basedir, 'hydrodatahub.db')
-    # SQLALCHEMY_TRACK_MODIFICATIONS = False
-    # LOG_TO_STDOUT = os.environ.get('LOG_TO_STDOUT')
-    # ADMINS = ['your-email@example.com']
-    # LANGUAGES = ['en']
-    # REDIS_URL = os.environ.get('REDIS_URL') or 'redis://'
-    # SHARABLE_DB = os.environ.get('SHARABLE_DB')
+
+    # Bucket configuration
     BUCKET = 's3://era5-atlantic-northeast/netcdf/single-levels/day'
+    CLIENT_KWARGS = {'endpoint_url': 'https://s3.us-east-2.wasabisys.com',
+                     'region_name': 'us-east-2'}
+    CONFIG_KWARGS = {'max_pool_connections': 30}
+    PROFILE = 'default'
+
+    STORAGE_OPTIONS = {'profile': PROFILE,
+                       'client_kwargs': CLIENT_KWARGS,
+                       'config_kwargs': CONFIG_KWARGS
+                       }
+
+    # Dataset
+    START_DATE = "2010-01-01"
+    END_DATE = (datetime.today() - timedelta(days=5)).strftime('%Y-%m-%d')
+
     VARIABLES = {'snow_albedo': 'asn',
                  'convective_available_potential_energy': 'cape',
                  'convective_precipitation': 'cp',
