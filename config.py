@@ -1,4 +1,6 @@
 from datetime import datetime, timedelta
+
+
 class Config(object):
 
     # Bucket configuration
@@ -14,8 +16,8 @@ class Config(object):
                        }
 
     # Dataset
-    START_DATE = "2010-01-01"
-    END_DATE = (datetime.today() - timedelta(days=5)).strftime('%Y-%m-%d')
+    START_DATE = "1979-01-01"
+    END_DATE = (datetime.utcnow() - timedelta(days=5)).strftime('%Y-%m-%d')
 
     VARIABLES = {'snow_albedo': 'asn',
                  'convective_available_potential_energy': 'cape',
