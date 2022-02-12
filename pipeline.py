@@ -71,7 +71,9 @@ def save_unique_variable_date_file(dates_vars):
     variables_long_name: list = [var_long_name
                                  for var_long_name, var_short_name in Config.VARIABLES.items()
                                  if var_short_name in list(map(lambda x: x.lower(), variables))]
-
+    download_filename = "tmp-{:04d}{:02d}{:02d}".format(chosen_date.year,
+                                                    chosen_date.month,
+                                                    chosen_date.day)
     fetch_era5(chosen_date, variables_long_name, download_filename)
 
     ds = xr.open_mfdataset(download_filename)
