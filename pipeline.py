@@ -91,7 +91,7 @@ def save_unique_variable_date_file(dates_vars):
                    os.path.join(Config.BUCKET,
                                 filename))
             os.remove(filename)
-    os.remove('tmp.nc')
+    os.remove(download_filename)
 
 
 if __name__ == '__main__':
