@@ -63,7 +63,7 @@ def list_available_data_not_in_bucket():
     all_combinations_filenames: list = ['{}_{}_ERA5_SL_REANALYSIS.nc'.format(date, variable.upper()) for
                                         date, variable in product(date_range, short_name_variables)]
     current_filenames_in_bucket: list = [os.path.basename(filename)
-                                         for filename in fs.ls(Config.BUCKET)[1:]]
+                                         for filename in fs.ls(Config.BUCKET)]
     missing_filenames_in_bucket: list = list(set(all_combinations_filenames) \
                                              .difference(set(current_filenames_in_bucket)))
 
