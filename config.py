@@ -16,7 +16,7 @@ class Config(object):
                        }
 
     # Dataset
-    START_DATE = "1979-01-01"
+    START_DATE = "2008-01-01"
     END_DATE = (datetime.utcnow() - timedelta(days=5)).strftime('%Y-%m-%d')
 
     VARIABLES = {'snow_albedo': 'asn',
